@@ -45,8 +45,8 @@ Rules:
   suggestions in a separate line labelled `建议:` or leave them out.
 - `source_ref` says who said it, when, and where (which chat, screenshot,
   dashboard). "Assistant research" is not a valid source for a fact about the user.
-- `proposed_by` uses the agent_id from 🤖 Agent Registry (e.g. `meta_muse`,
-  `grok_bot`, `codex`, `claude`).
+- `proposed_by` uses the agent's ID from the Agent Registry — any tool, e.g.
+  `chatgpt`, `claude`, `grok_bot`, `deepseek`, `meta_muse`, `codex`.
 - `status` values: `pending`, `confirmed`, `rejected`. A partial confirmation
   is written inline: `confirmed（A 已确认；B 待核对）`.
 - `confirmed_by` is `用户亲口确认` (or how the user confirmed). Never an agent name.

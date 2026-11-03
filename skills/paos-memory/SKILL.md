@@ -5,8 +5,11 @@ description: Read, propose, review and update Personal AI OS shared memory — e
 
 # PAOS Memory
 
-One set of rules for every Personal AI OS agent (ChatGPT, Meta Muse, Grok Bot,
-Codex, Claude …) to read and update the same memory.
+One set of rules for every AI agent connected to Personal AI OS — ChatGPT,
+Claude, Grok, DeepSeek, Meta Muse, Codex or any other tool — to read and
+update the same memory. No agent is special; each follows these rules.
+
+中文：不限定哪几个 AI，所有能接进来的 Agent 都用同一套规则。
 
 中文摘要：记忆默认 pending，只有用户亲口确认后才是 confirmed；未确认内容不得当作事实。
 Agent 只能提议，不能替用户确认；更正保留历史，不删旧记录。

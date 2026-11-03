@@ -4,9 +4,9 @@
 
 [中文](README.zh-CN.md) · [Protocol](docs/PROTOCOL.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](SECURITY.md)
 
-ChatGPT and Meta Muse can exchange independent Markdown messages through a private Google Drive workspace when the user has an available, authorized connector, or through manual file transfer. The user reviews shared memory and approves external actions. This repository provides the format, offline tools, and a reproducible synthetic demo.
+Any AI agent tool — ChatGPT, Claude, Grok, DeepSeek, Meta Muse, Codex and others — can exchange independent Markdown messages through a private shared workspace that every participant can be connected to: a note tool such as Notion, a cloud folder, or manual file transfer when no connector exists. The user reviews shared memory and approves external actions. This repository provides the format, offline tools, and a reproducible synthetic demo.
 
-This is an unofficial community project, not an operating system or an integration endorsed by OpenAI, Meta, or Google. Product names identify possible participants; availability and permissions vary by account.
+This is an unofficial community project, not an operating system or an integration endorsed by any AI or storage vendor. Product names identify possible participants; availability and permissions vary by account.
 
 ## What ships in v0.1
 
@@ -17,12 +17,12 @@ This is an unofficial community project, not an operating system or an integrati
 | Assigned task queue and expiration display | Implemented; no task execution |
 | Pending memory proposals and human review records | Implemented; identity is not authenticated |
 | Windows 11 optional validation Worker | Implemented as an offline, one-shot CLI |
-| Google Drive transport | User-managed connector/manual upload; no OAuth client in this repo |
-| Native automatic ChatGPT ↔ Muse connection | Not implemented |
-| Real-time Drive listener, waking another AI, native internal memory sync | Not implemented |
-| Muse scheduled polling | Account-specific experiment, not verified by this software |
+| Shared workspace transport (Notion, cloud folder, …) | User-managed connector/manual upload; no OAuth client in this repo |
+| Native automatic agent-to-agent connection | Not implemented |
+| Real-time workspace listener, waking another AI, native internal memory sync | Not implemented |
+| Scheduled polling by an assistant | Account-specific experiment, not verified by this software |
 
-The motivating private experiment reported user-triggered reading, independent file creation, and readback. Private records are deliberately excluded. Those reports do not prove always-on operation or general availability. The public demo simulates both participants without contacting either service.
+The motivating private experiment (ChatGPT and Meta Muse over Google Drive) reported user-triggered reading, independent file creation, and readback. Private records are deliberately excluded. Those reports do not prove always-on operation or general availability. The public demo simulates both participants without contacting either service.
 
 ## Run the offline demo
 
@@ -40,13 +40,13 @@ On Windows, use `py -3` instead of `python` if needed. The generator requires a 
 
 Optional installation: `python -m pip install .` exposes the equivalent `paos` command. Distribution name is `personal-ai-os-filebridge`; repository name is `personal-ai-os`. No PyPI release is claimed.
 
-## Use with Google Drive
+## Use with a shared workspace
 
 1. Create a private, dedicated workspace with only non-sensitive test material. Keep this public source repository separate from your working data.
 2. Register each participant as pending. Independently check its actual connector permissions and supported read/write operations. If no connector exists, use manual file transfer and record that limitation.
 3. Send a fresh non-secret challenge in a message. Request a new receipt with reversed sender/recipient and the exact challenge. Read back both files and verify the original was unchanged. A challenge echo proves possession of text, not account identity.
 4. After user approval, record the agent as active. Assign one executor per task. Upload each message/event as a new file; never overwrite another participant's file.
-5. Download a complete snapshot into a separate local folder and validate it. Missing predecessors fail validation. Compare file bytes or hashes after upload; Drive can contain multiple files with the same name, so inspect document IDs as well.
+5. Download a complete snapshot into a separate local folder and validate it. Missing predecessors fail validation. Compare file bytes or hashes after upload; some tools allow several files with the same name, so inspect document IDs as well.
 6. Keep memory pending until the user authors a separate review record. Use `memories` to export only confirmed, unsuperseded proposals.
 
 The CLI does not upload files, authorize connectors, or send messages. To create an envelope from JSON metadata and an optional text body:
@@ -63,7 +63,7 @@ See [the onboarding prompt](docs/ONBOARDING.md), [protocol fields](docs/PROTOCOL
 
 ## Design choices and limits
 
-Each record has a unique ID, author, recipient, thread, and timestamp. Tasks remain immutable; the assigned executor emits separate events. Validation rejects forks and missing revisions rather than guessing which writer won. Local exclusive creation prevents overwriting a filename, but snapshots and Drive synchronization do not provide distributed locking. Use a transactional queue before enabling concurrent workers or external side effects.
+Each record has a unique ID, author, recipient, thread, and timestamp. Tasks remain immutable; the assigned executor emits separate events. Validation rejects forks and missing revisions rather than guessing which writer won. Local exclusive creation prevents overwriting a filename, but snapshots and shared-workspace sync do not provide distributed locking. Use a transactional queue before enabling concurrent workers or external side effects.
 
 Allowed-action strings and `human` author labels are declarations. They are not authentication, a permission boundary, or proof of approval. A malicious writer can forge them. Validate provenance through the user's actual product session and access controls. This code never executes document content.
 
