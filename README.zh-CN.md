@@ -58,7 +58,7 @@ python -m paos create workspace/demo --metadata new-message.json --body message.
 
 ## Agent Skill：paos-memory
 
-[`skills/paos-memory/`](skills/paos-memory/SKILL.md) 是一份可移植的 Skill（`SKILL.md` 文件夹），规定各个 AI 如何读取、提议、确认和更新共享记忆：Notion 为主存储，Drive 为只读备份，文件交接时使用上面的 `memory` / `memory_review` 两种文档。仓库里只有规则和合成示例，不含真实记忆。各产品能否原生安装或自动发现 Skill 不一致，不支持时可手动粘贴或引用。Skill 本身不授予任何权限。
+[`skills/paos-memory/`](skills/paos-memory/SKILL.md) 是一份可移植的 Skill（`SKILL.md` 文件夹），规定各个 AI 如何读取、提议、确认和更新共享记忆：以所有 Agent 都能接入的笔记工具（如 Notion）为主存储，文件交接时使用上面的 `memory` / `memory_review` 两种文档。仓库里只有规则和合成示例，不含真实记忆。各产品能否原生安装或自动发现 Skill 不一致，不支持时可手动粘贴或引用。Skill 本身不授予任何权限。
 
 ## 关键边界
 

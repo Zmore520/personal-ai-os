@@ -1,8 +1,12 @@
-# Notion 🗃️ AI Memory entry format / 条目格式
+# Note-store entry format / 条目格式
+
+Written for Notion (database 🗃️ AI Memory). In another note tool, keep the
+same page name, fields and entry layout; map properties to whatever the tool
+offers (tags, frontmatter, folders).
 
 ## Page
 
-One page per topic in the 🗃️ AI Memory database. Never at the Personal AI OS root.
+One page per topic in the AI Memory section. Never at the top level of the Personal AI OS space.
 
 | Property | Value |
 |---|---|
@@ -10,7 +14,7 @@ One page per topic in the 🗃️ AI Memory database. Never at the Personal AI O
 | Category | one of Profile / Academics / Career / AI Memory / English / Fitness / Template |
 | Date | page creation date |
 | Status | Pending until at least one entry is confirmed, then Active; Archived pages move to the archive database |
-| Drive Link | only if the page was migrated from Drive |
+| Source Link | only if the page was migrated from another tool |
 
 Before creating a page, search the database. Add to an existing topic page
 whenever one fits.
@@ -49,7 +53,7 @@ Rules:
 
 ## Mapping to file protocol
 
-| Notion field | PAOS `memory` document |
+| Note-store field | PAOS `memory` document |
 |---|---|
 | MEM-ID | `id` (lowercase, e.g. `mem-20301101-001`) |
 | content | `content` |

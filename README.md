@@ -59,7 +59,7 @@ See [the onboarding prompt](docs/ONBOARDING.md), [protocol fields](docs/PROTOCOL
 
 ## Agent skill: paos-memory
 
-[`skills/paos-memory/`](skills/paos-memory/SKILL.md) is a portable skill (a `SKILL.md` folder) that tells each participating assistant how to read, propose, confirm and update shared memory: Notion as the primary store, Drive as a read-only backup, and the `memory` / `memory_review` file kinds above for file handoff. It contains only rules and synthetic examples. Whether a given product can install or auto-discover a skill varies; where it can't, paste or reference the file manually. A skill grants no access by itself.
+[`skills/paos-memory/`](skills/paos-memory/SKILL.md) is a portable skill (a `SKILL.md` folder) that tells each participating assistant how to read, propose, confirm and update shared memory: a shared note store every agent can connect to (Notion or any similar tool) as the primary store, and the `memory` / `memory_review` file kinds above for file handoff. It contains only rules and synthetic examples. Whether a given product can install or auto-discover a skill varies; where it can't, paste or reference the file manually. A skill grants no access by itself.
 
 ## Design choices and limits
 

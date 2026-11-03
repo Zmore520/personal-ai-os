@@ -6,7 +6,7 @@ Run this before asking the user to confirm. Report pass/fail; the user decides.
 
 1. **Stated** — `source_ref` points to the user's own words or material.
 2. **Durable** — useful in a month, not one day's task status.
-3. **Right page** — topic page in 🗃️ AI Memory; not the root; no duplicate topic page.
+3. **Right page** — topic page in AI Memory; not the top level; no duplicate topic page.
 4. **Not duplicate** — no existing entry already says it.
 5. **Allowed** — nothing from the never-store list.
 6. **Calibrated** — "mentioned once" is not written as a habit; partial facts keep their gaps (`数量和成本未提供`).
@@ -58,6 +58,6 @@ Ask the user. Don't choose.
 
 ## Mirroring
 
-Notion is primary. When the user asks for a backup, copy finished entries to
-Drive as **new** files; existing Drive files are not edited, moved or deleted.
-Don't keep two writable copies of the same entry.
+The note store is primary. When the user asks for a backup, copy finished
+entries to the backup location as **new** files; existing backup files are not
+edited, moved or deleted. Don't keep two writable copies of the same entry.

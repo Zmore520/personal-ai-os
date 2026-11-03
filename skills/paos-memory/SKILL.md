@@ -1,6 +1,6 @@
 ---
 name: paos-memory
-description: Read, propose, review and update Personal AI OS shared memory — Notion 🗃️ AI Memory entries and PAOS memory / memory_review files. Use whenever a PAOS agent needs the user's context or wants to record, confirm, correct or supersede a fact.
+description: Read, propose, review and update Personal AI OS shared memory — entries in a shared note store (e.g. Notion) and PAOS memory / memory_review files. Use whenever a PAOS agent needs the user's context or wants to record, confirm, correct or supersede a fact.
 ---
 
 # PAOS Memory
@@ -12,26 +12,33 @@ Codex, Claude …) to read and update the same memory.
 Agent 只能提议，不能替用户确认；更正保留历史，不删旧记录。
 
 This skill does not grant access. What an agent can actually do depends on
-the connectors it has (Notion, Drive, local files). See `docs/PROTOCOL.md`
+the connectors it has (note tool, local files). See `docs/PROTOCOL.md`
 for the file format this skill builds on.
 
 ## 0. Where memory lives
 
+Memory lives in a **shared note store**: any note tool every agent can be
+connected to — Notion, Obsidian, a synced Markdown folder, and so on. The
+tool doesn't matter; what matters is that all agents read and write the
+same place through a connector, MCP server or manual paste.
+
+中文：存储不限定工具，Notion 这类笔记工具都可以，只要所有 Agent 都能接进去。
+
 | Place | Role | Agent may |
 |---|---|---|
-| Notion → Personal AI OS → 🗃️ AI Memory | **Primary** working store | read; add pending entries; mark confirmed only after the user confirms in chat |
-| Google Drive `04_AI_Memory/` | Read-only backup | read; mirror finished Notion entries if the user asks. Never edit, move or delete existing Drive files |
+| Shared note store → AI Memory section (e.g. Notion database 🗃️ AI Memory) | **Primary** working store | read; add pending entries; mark confirmed only after the user confirms in chat |
+| Backup copy (optional, any tool) | Read-only mirror | read; copy finished entries if the user asks. Never edit, move or delete existing backup files |
 | Private PAOS workspace `memory/` | Portable files for file-based handoff | write new `memory` proposals; never write `memory_review` |
 | This public repository | Format, tools, synthetic examples | **never** store real memory here |
 
-Notion rules that also apply: never create pages at the Personal AI OS root;
-every new page goes into its topic database. Agent notes, retrospectives and
-dashboards belong in 🗃️ AI Memory.
+Keep exactly one writable store. Inside it, never put pages at the top
+level of the Personal AI OS space; every page goes into its topic section.
+Agent notes, retrospectives and dashboards belong in AI Memory.
 
 ## 1. Before you start
 
-State in one line what you can do this session: read Notion / write Notion /
-read Drive / write files. If you can't reach a store, say so and fall back:
+State in one line what you can do this session: read the note store / write
+the note store / write files. If you can't reach a store, say so and fall back:
 ask the user to paste the page, or output your proposal as text for them to
 save. Never claim a read, write or confirmation you did not perform.
 
@@ -62,9 +69,9 @@ All four must hold:
 
 ## 4. Proposing (any agent)
 
-**In Notion:** add an entry to the topic page in 🗃️ AI Memory (create the page
+**In the note store:** add an entry to the topic page in AI Memory (create the page
 `MEM-YYYYMMDD-TOPIC · 主题` with Category and Date if none fits). Use the
-exact entry format in `references/notion-entry-format.md`:
+exact entry format in `references/entry-format.md`:
 
 ```
 ## MEM-YYYYMMDD-NNN
@@ -91,13 +98,13 @@ reject.
 The user is the only reviewer. "Confirm" must come from the user in the
 current chat, for specific entries.
 
-- **Notion:** set `status: confirmed`, `confirmed_by: 用户亲口确认`,
+- **Note store:** set `status: confirmed`, `confirmed_by: 用户亲口确认`,
   `confirmed_at: <date>`. If the whole page is now live, set the page Status
   to Active.
 - **Files:** the user authors (or explicitly dictates) a separate
   `memory_review` document with `from_agent: "human"` and a `decision`.
   An agent must not write it on its own initiative.
-- Rejected: Notion → `status: rejected` plus a one-line reason; files → a
+- Rejected: note store → `status: rejected` plus a one-line reason; files → a
   `memory_review` with `decision: "rejected"`.
 
 A confirmation covers what the user confirmed — nothing broader. If they
