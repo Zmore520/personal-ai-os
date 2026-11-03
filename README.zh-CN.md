@@ -56,6 +56,10 @@ python -m paos create workspace/demo --metadata new-message.json --body message.
 
 格式参考 [协议](docs/PROTOCOL.md) 和 `examples/exchange`；启动协作可使用 [接入提示词](docs/ONBOARDING.md)，本地定时验证参考 [Windows Worker](docs/WINDOWS_WORKER.md)。
 
+## Agent Skill：paos-memory
+
+[`skills/paos-memory/`](skills/paos-memory/SKILL.md) 是一份可移植的 Skill（`SKILL.md` 文件夹），规定各个 AI 如何读取、提议、确认和更新共享记忆：Notion 为主存储，Drive 为只读备份，文件交接时使用上面的 `memory` / `memory_review` 两种文档。仓库里只有规则和合成示例，不含真实记忆。各产品能否原生安装或自动发现 Skill 不一致，不支持时可手动粘贴或引用。Skill 本身不授予任何权限。
+
 ## 关键边界
 
 任务采用不可变原件与独立状态事件。验证器发现版本分叉就停止，不猜测哪个写入者正确。本地独占创建能避免文件覆盖，但 Drive 和下载快照没有分布式锁。需要并发执行、自动重试和外部副作用时，先引入事务队列与权限系统。

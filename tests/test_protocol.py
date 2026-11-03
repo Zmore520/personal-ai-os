@@ -197,3 +197,12 @@ class ProtocolTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SkillExampleTests(unittest.TestCase):
+    def test_paos_memory_skill_examples(self):
+        root = Path(__file__).resolve().parents[1] / "skills" / "paos-memory" / "assets" / "examples"
+        exported = [m["id"] for m in confirmed_memories(load(root))]
+        # The confirmed replacement hides the original; the pending proposal stays out.
+        self.assertEqual(exported, ["example-mem-002"])
+
