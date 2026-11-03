@@ -5,6 +5,7 @@ Use Python 3.10+ and run:
 ```sh
 python -m unittest discover -s tests -v
 python -m paos validate examples/exchange
+python -m paos validate skills/paos-memory/assets/examples
 python tools/check_public.py
 ```
 

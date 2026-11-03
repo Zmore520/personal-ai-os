@@ -57,6 +57,10 @@ python -m paos create workspace/demo --metadata new-message.json --body message.
 
 See [the onboarding prompt](docs/ONBOARDING.md), [protocol fields](docs/PROTOCOL.md), and [Windows instructions](docs/WINDOWS_WORKER.md). Use the existing synthetic Markdown files as templates; replace IDs and timestamps, and omit fictional challenge values from real tests.
 
+## Agent skill: paos-memory
+
+[`skills/paos-memory/`](skills/paos-memory/SKILL.md) is a portable skill (a `SKILL.md` folder) that tells each participating assistant how to read, propose, confirm and update shared memory: Notion as the primary store, Drive as a read-only backup, and the `memory` / `memory_review` file kinds above for file handoff. It contains only rules and synthetic examples. Whether a given product can install or auto-discover a skill varies; where it can't, paste or reference the file manually. A skill grants no access by itself.
+
 ## Design choices and limits
 
 Each record has a unique ID, author, recipient, thread, and timestamp. Tasks remain immutable; the assigned executor emits separate events. Validation rejects forks and missing revisions rather than guessing which writer won. Local exclusive creation prevents overwriting a filename, but snapshots and Drive synchronization do not provide distributed locking. Use a transactional queue before enabling concurrent workers or external side effects.
